@@ -1,0 +1,27 @@
+Classroom menu
+    - names of classes
+    
+                - course code
+                - course name
+                - period
+                - teacher name
+
+                - assignments list
+                    - Due
+                    - name
+                    - points
+        
+                - student list
+                    - first_name: str
+                    - last_name: str
+                    - Gender
+                    - image
+                    - student number
+                    - grade: int
+                    - email
+                    - marks: List[float]
+                    - Comments
+
+                
+
+
