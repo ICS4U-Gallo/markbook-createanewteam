@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import pickle
-import tabulate
+import tabulate  # External library to simplify printing
 
 
 class Assignment:
