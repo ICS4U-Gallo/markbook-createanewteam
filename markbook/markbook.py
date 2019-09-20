@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import pickle
+import tabulate
 
 
 class Assignment:
@@ -81,11 +82,15 @@ class Student:
         self.__setattr__(attribute, value)
 
     def __str__(self):
-        return str(list(Student.accepted_types.keys()))  # Temporary
+        data = self.__dict__
+        for key in data.keys():
+            data[key] = [data[key]]
+        return tabulate.tabulate(data, data.keys(), tablefmt='fancy_grid')
 
 
 class Classroom:
     accepted_types = {
+        'class_name': str,
         'course_code': str,
         'course_name': str,
         'period': int,
@@ -151,8 +156,19 @@ class Classroom:
         for attribute in self.accepted_types.keys():
             self.__setattr__(attribute, None)
 
+    def print_students(self):
+        header = Student.accepted_types.keys()
+        data = []
+        for student in self.students.values():
+            data.append([info for info in student.__dict__.values()])  # prints student dict needs fixing
+
+        print(tabulate.tabulate(data, header, tablefmt='fancy_grid'))
+
+    def inspect(self, student_fullname: str):
+        print(self.students[student_fullname])
+
     def __str__(self):
-        return str(list(Classroom.accepted_types.keys()))  # Temporary
+        return str(list(Classroom.accepted_types.keys()))  # temporary
 
     def __len__(self):
         return len(self.students.items())
@@ -215,8 +231,52 @@ class Book:
 
         self.classrooms.update({})
 
+    def print_classrooms(self, return_str=False):
+        header = Classroom().__dict__
+        # header.pop('students')
+
+        data = []
+        for room in self.classrooms.values():
+            data.append([info for info in room.__dict__.values()])
+
+        to_print = tabulate.tabulate(data, header, tablefmt='fancy_grid')
+        if return_str:
+            return to_print
+        else:
+            print(to_print)
+
+    def tweak(self, class_name: str, attribute: str, value):
+        self.classrooms[class_name].tweak(attribute, value)
+
+    def inspect(self, class_name: str):
+        self.classrooms[class_name].print_students()
+
     def __str__(self):
         return str(self.classrooms)
 
     def __len__(self):
         return len(self.classrooms.items())
+
+
+"""
+
+Testing Code IGNORE
+
+
+book = Book()
+
+stud = Student(first_name='John', last_name='Smith', gender='M')
+stud2 = Student(first_name='Maria', last_name='Dick', gender='F')
+stud3 = Student(first_name='Robert', last_name='DiNero', gender='M')
+stud4 = Student(first_name='James', last_name='Harris', gender='M')
+
+classroom = Classroom(students=[stud, stud2, stud3, stud4])
+classroom.tweak('class_name', '12 Gallo')
+
+book.add_class(classroom)
+book.tweak('12 Gallo', 'course_code', 'ICS4U1')
+
+# book.print_classrooms() book classroom printing needs fixing
+
+classroom.print_students()
+"""
