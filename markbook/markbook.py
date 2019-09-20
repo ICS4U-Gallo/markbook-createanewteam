@@ -18,6 +18,15 @@ class Assignment:
         self.points = points
 
     def tweak(self, attribute: str, value):
+
+        """
+        :param attribute: name of classroom attribute to be modified. if attribute
+        does not exist it is created
+        :param value: value associated to attribute being modified. overwrites any
+        existing value associated to that attribute
+        :return: no returns, modifies existing and/or creates attributes
+        """
+
         self.__setattr__(attribute, value)
 
     def __str__(self):
@@ -51,10 +60,24 @@ class Student:
         self.comments = comments
 
     def wipe(self):
+
+        """
+        :return: no returns, clears all information
+        """
+
         for attribute in Student.accepted_types.keys():
             self.__setattr__(attribute, None)
 
     def tweak(self, attribute: str, value):
+
+        """
+        :param attribute: name of classroom attribute to be modified. if attribute
+        does not exist it is created
+        :param value: value associated to attribute being modified. overwrites any
+        existing value associated to that attribute
+        :return: no returns, modifies existing and/or creates attributes
+        """
+
         self.__setattr__(attribute, value)
 
     def __str__(self):
@@ -78,7 +101,7 @@ class Classroom:
         self.course_name = course_name
         self.period = period
         self.teacher_name = teacher_name
-        self.students = {}
+        self.students = {}  # dict containing Student instances of all students in the classroom
         self.assignments = assignements
 
         if students is not None:
@@ -88,16 +111,45 @@ class Classroom:
             pass
 
     def tweak(self, attribute: str, value):
+
+        """
+        :param attribute: name of classroom attribute to be modified. if attribute
+        does not exist it is created
+        :param value: value associated to attribute being modified. overwrites any
+        existing value associated to that attribute
+        :return: no returns, modifies existing and/or creates attributes
+        """
+
         self.__setattr__(attribute, value)
 
     def add_student(self, student: Student):
+
+        """
+        :param student: student to be added, must be instance of Student class
+        :return: no returns, adds given student to classroom instance
+        """
+
         self.students.update({'{} {}'.format(student.last_name, student.first_name): student})
 
     def remove_student(self, first_name: str, last_name: str):
+
+        """
+        :param first_name: first name of student to be removed
+        :param last_name: last name of student to be removed
+        :return: no returns, removes student from classroom instance
+        """
+
         self.students.pop('{} {}'.format(last_name, first_name))
 
     def wipe(self):
+
+        """
+        :return: no returns, clears all students and information
+        """
+
         self.students.update({})
+        for attribute in self.accepted_types.keys():
+            self.__setattr__(attribute, None)
 
     def __str__(self):
         return str(list(Classroom.accepted_types.keys()))  # Temporary
@@ -109,29 +161,62 @@ class Classroom:
 class Book:
 
     def __init__(self):
-        self.classrooms = {}
+        self.classrooms = {}  # dict containing Classroom instances of all the classrooms
 
     def add_class(self, classroom: Classroom):
+
+        """
+        :param classroom: classroom to be added, must be instance of Classroom class
+        :return: no returns, adds given Classroom instance to dict of classrooms
+        """
+
         self.classrooms.update({classroom.class_name: classroom})
 
     def remove_class(self, class_name: str):
+
+        """
+        :param class_name: name of the classroom to be removed
+        :return: no returns, removes classroom of user's choosing
+        """
+
         self.classrooms.pop(class_name)
 
     def save(self, save_name: str, protocol=0):
+
+        """
+        :param save_name: name of the file to be saved
+        :param protocol: tells the pickler to use a given protocol
+        :return: no returns, saves as pickled file of the Book instance to hard disk
+        """
+
         file = open(save_name, 'wb')
         pickle.dump(self, file, protocol=protocol)
         file.close()
 
     @staticmethod
     def load(file_path: str):
+
+        """
+        :param file_path: file path of the file containing the Book instance to be loaded
+        :return: returns Book instance of previously saved session
+        """
+
         file = open(file_path, 'rb')
         session = pickle.load(file)
         file.close()
 
         return session
 
+    def wipe(self):
+
+        """
+        :return: no returns, clears all classrooms
+        """
+
+        self.classrooms.update({})
+
     def __str__(self):
-        return str(Book.__slots__)
+        return str(self.classrooms)
 
     def __len__(self):
         return len(self.classrooms.items())
