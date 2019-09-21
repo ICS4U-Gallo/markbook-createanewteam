@@ -33,6 +33,9 @@ class Assignment:
     def __str__(self):
         return str(list(Assignment.accepted_types.keys()))
 
+    def __getitem__(self, item):
+        return getattr(self, item)
+
 
 class Student:
 
@@ -86,6 +89,9 @@ class Student:
         for key in data.keys():
             data[key] = [data[key]]
         return tabulate.tabulate(data, data.keys(), tablefmt='fancy_grid')
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 
 class Classroom:
@@ -167,11 +173,17 @@ class Classroom:
     def inspect(self, student_fullname: str):
         print(self.students[student_fullname])
 
+    def find(self, first_name: str, last_name: str):
+        pass  # Not Finished
+
     def __str__(self):
         return str(list(Classroom.accepted_types.keys()))  # temporary
 
     def __len__(self):
         return len(self.students.items())
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 
 class Book:
@@ -251,11 +263,17 @@ class Book:
     def inspect(self, class_name: str):
         self.classrooms[class_name].print_students()
 
+    def find(self, first_name: str, last_name: str):
+        pass  # Not Finished
+
     def __str__(self):
         return str(self.classrooms)
 
     def __len__(self):
         return len(self.classrooms.items())
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
 
 """
