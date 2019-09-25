@@ -290,6 +290,16 @@ class Book:
         return getattr(self, item)
 
 
+<<<<<<< HEAD
+=======
+
+
+#Testing Code IGNORE
+
+
+
+
+>>>>>>> 45921b60e4bf56bd4b19f88bb529398ddce101b2
 book = Book()
 
 stud = Student(first_name='John', last_name='Smith', gender='M')
@@ -308,6 +318,7 @@ book.tweak('12 Gallo', 'course_code', 'ICS4U1')
 classroom.print_students()
 
 
+<<<<<<< HEAD
 room = book.classrooms['12 Gallo']
 room.print_students()
 
@@ -316,3 +327,5 @@ room.students['DiNero Robert'].tweak('student_number', 5386492)
 room.print_students()
 
 
+=======
+>>>>>>> 45921b60e4bf56bd4b19f88bb529398ddce101b2
