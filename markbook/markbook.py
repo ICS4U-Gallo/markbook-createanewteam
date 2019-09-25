@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import pickle
-import tabulate  # External library to simplify printing
+import tabulate  # External library to simplify tabular printing
 
 
 class Assignment:
@@ -18,7 +18,7 @@ class Assignment:
         self.name = name
         self.points = points
 
-    def tweak(self, attribute: str, value):
+    def tweak(self, attribute: str, value) -> None:
 
         """
         :param attribute: name of classroom attribute to be modified. if attribute
@@ -63,7 +63,7 @@ class Student:
         self.marks = marks
         self.comments = comments
 
-    def wipe(self):
+    def wipe(self) -> None:
 
         """
         :return: no returns, clears all information
@@ -72,7 +72,7 @@ class Student:
         for attribute in Student.accepted_types.keys():
             self.__setattr__(attribute, None)
 
-    def tweak(self, attribute: str, value):
+    def tweak(self, attribute: str, value) -> None:
 
         """
         :param attribute: name of classroom attribute to be modified. if attribute
@@ -84,11 +84,14 @@ class Student:
 
         self.__setattr__(attribute, value)
 
-    def __str__(self):
+    def print_info(self) -> None:
         data = self.__dict__
         for key in data.keys():
             data[key] = [data[key]]
-        return tabulate.tabulate(data, data.keys(), tablefmt='fancy_grid')
+        print(tabulate.tabulate(data, data.keys(), tablefmt='fancy_grid'))
+
+    def __str__(self):
+        return str(self.__dict__)
 
     def __getitem__(self, item):
         return getattr(self, item)
@@ -121,7 +124,7 @@ class Classroom:
         else:
             pass
 
-    def tweak(self, attribute: str, value):
+    def tweak(self, attribute: str, value) -> None:
 
         """
         :param attribute: name of classroom attribute to be modified. if attribute
@@ -133,7 +136,7 @@ class Classroom:
 
         self.__setattr__(attribute, value)
 
-    def add_student(self, student: Student):
+    def add_student(self, student: Student) -> None:
 
         """
         :param student: student to be added, must be instance of Student class
@@ -142,7 +145,7 @@ class Classroom:
 
         self.students.update({'{} {}'.format(student.last_name, student.first_name): student})
 
-    def remove_student(self, first_name: str, last_name: str):
+    def remove_student(self, first_name: str, last_name: str) -> None:
 
         """
         :param first_name: first name of student to be removed
@@ -152,7 +155,7 @@ class Classroom:
 
         self.students.pop('{} {}'.format(last_name, first_name))
 
-    def wipe(self):
+    def wipe(self) -> None:
 
         """
         :return: no returns, clears all students and information
@@ -162,7 +165,7 @@ class Classroom:
         for attribute in self.accepted_types.keys():
             self.__setattr__(attribute, None)
 
-    def print_students(self):
+    def print_students(self) -> None:
         header = Student.accepted_types.keys()
         data = []
         for student in self.students.values():
@@ -170,11 +173,14 @@ class Classroom:
 
         print(tabulate.tabulate(data, header, tablefmt='fancy_grid'))
 
-    def inspect(self, student_fullname: str):
-        print(self.students[student_fullname])
+    def inspect(self, student_fullname: str) -> None:
 
-    def find(self, first_name: str, last_name: str):
-        pass  # Not Finished
+        """
+        :param student_fullname: full first and last name of student to be inspected. last name, first name
+        :return: no returns, prints out all info of inspected student
+        """
+
+        print(self.students[student_fullname])
 
     def __str__(self):
         return str(list(Classroom.accepted_types.keys()))  # temporary
@@ -191,7 +197,7 @@ class Book:
     def __init__(self):
         self.classrooms = {}  # dict containing Classroom instances of all the classrooms
 
-    def add_class(self, classroom: Classroom):
+    def add_class(self, classroom: Classroom) -> None:
 
         """
         :param classroom: classroom to be added, must be instance of Classroom class
@@ -200,7 +206,7 @@ class Book:
 
         self.classrooms.update({classroom.class_name: classroom})
 
-    def remove_class(self, class_name: str):
+    def remove_class(self, class_name: str) -> None:
 
         """
         :param class_name: name of the classroom to be removed
@@ -235,7 +241,7 @@ class Book:
 
         return session
 
-    def wipe(self):
+    def wipe(self) -> None:
 
         """
         :return: no returns, clears all classrooms
@@ -257,13 +263,21 @@ class Book:
         else:
             print(to_print)
 
-    def tweak(self, class_name: str, attribute: str, value):
+    def tweak(self, class_name: str, attribute: str, value) -> None:
         self.classrooms[class_name].tweak(attribute, value)
 
-    def inspect(self, class_name: str):
+    def inspect(self, class_name: str) -> None:
         self.classrooms[class_name].print_students()
 
     def find(self, first_name: str, last_name: str):
+
+        """
+        :param first_name: first name of student to be returned
+        :param last_name: last name of student to be returned
+        :return: searches all classrooms for specific student, returns instance to according student if found.
+        returns False if student does not exist
+        """
+
         pass  # Not Finished
 
     def __str__(self):
@@ -274,11 +288,6 @@ class Book:
 
     def __getitem__(self, item):
         return getattr(self, item)
-
-
-"""
-
-Testing Code IGNORE
 
 
 book = Book()
@@ -297,4 +306,13 @@ book.tweak('12 Gallo', 'course_code', 'ICS4U1')
 # book.print_classrooms() book classroom printing needs fixing
 
 classroom.print_students()
-"""
+
+
+room = book.classrooms['12 Gallo']
+room.print_students()
+
+room.students['DiNero Robert'].tweak('student_number', 5386492)
+
+room.print_students()
+
+
