@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d80951ec-2f5c-40f4-afc7-3358d41ab607" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/markbook/markbook.py" beforeDir="false" afterPath="$PROJECT_DIR$/markbook/markbook.py" afterDir="false" />
-    </list>
+    <list default="true" id="d80951ec-2f5c-40f4-afc7-3358d41ab607" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +27,8 @@
       <file leaf-file-name="markbook.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/markbook/markbook.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1130">
-              <caret line="252" lean-forward="true" selection-start-line="252" selection-end-line="252" />
+            <state relative-caret-position="310">
+              <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
               <folding>
                 <element signature="e#24#37#0" expanded="true" />
               </folding>
@@ -238,15 +236,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="25" y="23" width="1225" height="763" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32882884" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32882884" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32882884" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32882884" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25781912" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -378,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/markbook/markbook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1130">
-          <caret line="252" lean-forward="true" selection-start-line="252" selection-end-line="252" />
+        <state relative-caret-position="310">
+          <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
           <folding>
             <element signature="e#24#37#0" expanded="true" />
           </folding>
