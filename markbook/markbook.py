@@ -308,11 +308,12 @@ classroom.tweak('class_name', '12 Gallo')
 book.add_class(classroom)
 book.tweak('12 Gallo', 'course_code', 'ICS4U1')
 
-# book.print_classrooms() book classroom printing needs fixing
+book.print_classrooms() 
 
 classroom.print_students()
 
 
+<<<<<<< HEAD
 room = book.classrooms['12 Gallo']
 room.print_students()
 
