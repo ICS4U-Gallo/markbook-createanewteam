@@ -290,12 +290,7 @@ class Book:
         return getattr(self, item)
 
 
-
-
-#Testing Code IGNORE
-
-
-
+# Testing Code IGNORE
 
 book = Book()
 
