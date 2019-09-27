@@ -48,11 +48,12 @@ class Student:
         'grade': int,
         'email': str,
         'marks': tuple,
-        'comments': str
+        'comments': str,
+        'average': int
     }
 
     def __init__(self, first_name=None, last_name=None, gender=None, image=None, student_number=None,
-                 grade=None, email=None, marks=None, comments=None):
+                 grade=None, email=None, marks=None, comments=None, average=None):
         self.first_name = first_name
         self.last_name = last_name
         self.gender = gender
@@ -62,6 +63,7 @@ class Student:
         self.email = email
         self.marks = marks
         self.comments = comments
+        self.average = average
 
     def wipe(self) -> None:
 
@@ -165,7 +167,7 @@ class Classroom:
         for attribute in self.accepted_types.keys():
             self.__setattr__(attribute, None)
 
-    def print_students(self) -> None:
+    def print_info(self) -> None:
         header = Student.accepted_types.keys()
         data = []
         for student in self.students.values():
@@ -249,7 +251,7 @@ class Book:
 
         self.classrooms.update({})
 
-    def print_classrooms(self, return_str=False):
+    def print_info(self, return_str=False):
         header = Classroom().__dict__
         # header.pop('students')
 
@@ -292,6 +294,7 @@ class Book:
 
 # Testing Code IGNORE
 
+"""
 book = Book()
 
 stud = Student(first_name='John', last_name='Smith', gender='M')
@@ -317,3 +320,32 @@ room.students['DiNero Robert'].tweak('student_number', 5386492)
 
 room.print_students()
 
+
+
+
+book = Book()
+
+dummy = Classroom(class_name='Gallo')
+
+book.add_class(dummy)
+
+book.tweak('Gallo', 'class_name', 'Gallo')
+# book.print_info()
+
+# (book.classrooms)
+gallo = book.classrooms['Gallo']
+# gallo.print_info()
+
+john = Student()
+john.tweak('first_name', 'John')
+john.tweak('last_name', 'Harris')
+
+gallo.add_student(john)
+
+gallo.print_info()
+
+book.print_info()
+
+
+john.print_info()
+"""
