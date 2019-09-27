@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d80951ec-2f5c-40f4-afc7-3358d41ab607" name="Default" comment="" />
+    <list default="true" id="d80951ec-2f5c-40f4-afc7-3358d41ab607" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/markbook/markbook.py" beforeDir="false" afterPath="$PROJECT_DIR$/markbook/markbook.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/markbook_createanewteam$markbook.coverage" NAME="markbook Coverage Results" MODIFIED="1569606419658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/markbook" />
+    <SUITE FILE_PATH="coverage/markbook_createanewteam$markbook.coverage" NAME="markbook Coverage Results" MODIFIED="1569607882674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/markbook" />
     <SUITE FILE_PATH="coverage/markbook_createanewteam$test_markbook.coverage" NAME="test_markbook Coverage Results" MODIFIED="1568311010573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -24,14 +26,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="markbook.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="markbook.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/markbook/markbook.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
+            <state relative-caret-position="370">
+              <caret line="357" lean-forward="true" selection-start-line="357" selection-end-line="357" />
               <folding>
-                <element signature="e#24#37#0" expanded="true" />
+                <element signature="e#24#33#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="session.pickle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/markbook/userdata/session.pickle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -134,6 +145,12 @@
               <item name="markbook-createanewteam" type="b2602c69:ProjectViewProjectNode" />
               <item name="markbook-createanewteam" type="462c0819:PsiDirectoryNode" />
               <item name="markbook" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="markbook-createanewteam" type="b2602c69:ProjectViewProjectNode" />
+              <item name="markbook-createanewteam" type="462c0819:PsiDirectoryNode" />
+              <item name="markbook" type="462c0819:PsiDirectoryNode" />
+              <item name="userdata" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="markbook-createanewteam" type="b2602c69:ProjectViewProjectNode" />
@@ -240,11 +257,11 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32882884" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32882884" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32882884" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25781912" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32882884" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25781912" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -375,11 +392,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/markbook/markbook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
+        <state relative-caret-position="370">
+          <caret line="357" lean-forward="true" selection-start-line="357" selection-end-line="357" />
           <folding>
-            <element signature="e#24#37#0" expanded="true" />
+            <element signature="e#24#33#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/markbook/userdata/session.pickle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>

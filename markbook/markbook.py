@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+import os
 import pickle
 import tabulate  # External library to simplify tabular printing
 
@@ -350,3 +351,7 @@ book.print_info()
 
 john.print_info()
 """
+
+
+book = Book().load('./userdata/session.pickle')
+book.print_info()
