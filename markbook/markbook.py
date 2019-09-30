@@ -294,13 +294,12 @@ class Book:
 
 # ----------------------- Starting UI----------------------- #
 
+
 session = Book().load('../markbook/userdata/session.pickle')
 
 end_session = False
 
 print("Welcome to Markbook")
-
-session.print_info()
 
 
 def add_class():
@@ -355,12 +354,16 @@ def home():
               'Edit class: 3\n'
               'View class: 4\n'
               'Quit: 5\n')
+        try:
+            user_inpt = input('What would you like to do: ')
+            if user_inpt == '5':
+                end_session = True
+            else:
+                command_chain[user_inpt]()
+        except KeyError:
+            print('\nCommand not recognized\n')
+            session.print_info()
 
-        user_inpt = input('What would you like to do: ')
-        if user_inpt == '5':
-            end_session = True
-        else:
-            command_chain[user_inpt]()
     session.save('../markbook/userdata/session.pickle')
 
 
@@ -387,10 +390,10 @@ def delete_student(reference: Classroom):
 
 def edit_student(reference: Classroom):
     first, last = input("Which students' information would you like to edit: ").split(' ')
-    student = reference.students['{} {}'.format(last, first)]
+    stdnt = reference.students['{} {}'.format(last, first)]
 
-    student.tweak(input("Which parameter would you like to edit (if the paramter does not"
-                        "exist it will be automatically created): "), input("New value: "))
+    stdnt.tweak(input("Which parameter would you like to edit (if the paramter does not"
+                      "exist it will be automatically created): "), input("New value: "))
 
     print(chr(27) + "[2J")
     session.print_info()
@@ -429,34 +432,46 @@ def room():
               'Quit: 5\n')
 
         user_inpt = input('What would you like to do: ')
-        if user_inpt == '5':
-            end_session = True
-        else:
-            try:
-                master_commands[user_inpt]()
-            except KeyError:
-                command_chain[user_inpt](reference)
+
+        try:
+            if user_inpt == '5':
+                end_session = True
+            else:
+                try:
+                    master_commands[user_inpt]()
+                except KeyError:
+                    command_chain[user_inpt](reference)
+        except KeyError:
+            print('\nCommand not recognized\n')
+            reference.print_info()
 
 
 def student():
     stdnt = input('Focus on student: <classroom lastname, firstname>: ')
-    classroom, last, first = stdnt.split(' ')
+    stdnt = stdnt.split(' ')
 
-    stdnt = session.classrooms[classroom]['{} {}'.format(last, first)]
+    stdnt = session.classrooms[stdnt[0]]['{} {}'.format(stdnt[1], stdnt[2])]
 
     print(chr(27) + "[2J")
     print(stdnt)
 
     command_chain = {
-        'Add assignment': None,
-        'Delete assignment': None,
-        'Edit assignment': None,
+        'Add assignment: 1': None,
+        'Delete assignment: 2': None,
+        'Edit assignment: 3': None,
+        'View assignment: 4': None,
+        'Quit: 5': None
     }
+
+
+def assignment():
+    pass  # Not Finished
 
 
 master_commands = {'home': home,
                    'room': room,
-                   'student': student}
+                   'student': student,
+                   'assignment': assignment}
 
 while end_session is False:
     home()
