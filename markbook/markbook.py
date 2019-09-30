@@ -336,6 +336,8 @@ def view_class():
 
 
 def home():
+    print(chr(27) + "[2J")
+    session.print_info()
 
     command_chain = {
         '1': add_class,
@@ -343,6 +345,8 @@ def home():
         '3': edit_class,
         '4': view_class
     }
+
+    command_chain.update(master_commands)
 
     global end_session
     while end_session is False:
@@ -355,33 +359,104 @@ def home():
         user_inpt = input('What would you like to do: ')
         if user_inpt == '5':
             end_session = True
-        elif user_inpt in master_commands.keys():
-            master_commands[user_inpt]()
         else:
             command_chain[user_inpt]()
     session.save('../markbook/userdata/session.pickle')
 
 
+def add_student(reference: Classroom):
+    reference.add_student(Student(first_name=input('First name: '), last_name=input('Last name: '),
+                                  gender=input('Gender: '), image=input('Image: '),
+                                  student_number=input('Student number: '), grade=input('Grade: '),
+                                  email=input('Email: '), marks=input('Marks: '), comments=input('Comments: '),
+                                  average=input('Average: ')))
+
+    print('\n\nStudent Added')
+    print(chr(27) + "[2J")
+    reference.print_info()
+
+
+def delete_student(reference: Classroom):
+    first, last = input("Name of student to delete: ").split(' ')
+    reference.remove_student(first_name=first, last_name=last)
+
+    print(chr(27) + "[2J")
+    print('\n\nStudent Deleted')
+    session.print_info()
+
+
+def edit_student(reference: Classroom):
+    first, last = input("Which students' information would you like to edit: ").split(' ')
+    student = reference.students['{} {}'.format(last, first)]
+
+    student.tweak(input("Which parameter would you like to edit (if the paramter does not"
+                        "exist it will be automatically created): "), input("New value: "))
+
+    print(chr(27) + "[2J")
+    session.print_info()
+
+
+def view_student(reference: Classroom):
+    print(chr(27) + "[2J")
+    student_to_view = input("Which student would you like to view: ")
+    reference.students[student_to_view].print_info()
+
+
 def room():
+
+    print(chr(27) + "[2J")
+    reference = input('Focus on Classroom: ')
+    reference = session.classrooms[reference]
+
+    print(chr(27) + "[2J")
+    reference.print_info()
+
     command_chain = {
-        '1': None,
-        '2': None,
-        '3': None,
-        '4': None,
+        '1': add_student,
+        '2': delete_student,
+        '3': edit_student,
+        '4': view_student,
     }
 
-    print('worked')
+    command_chain.update(master_commands)
+
+    global end_session
+    while end_session is False:
+        print('Add student: 1\n'
+              'Delete student: 2\n'
+              'Edit student: 3\n'
+              'View student: 4\n'
+              'Quit: 5\n')
+
+        user_inpt = input('What would you like to do: ')
+        if user_inpt == '5':
+            end_session = True
+        else:
+            try:
+                master_commands[user_inpt]()
+            except KeyError:
+                command_chain[user_inpt](reference)
+
+
+def student():
+    stdnt = input('Focus on student: <classroom lastname, firstname>: ')
+    classroom, last, first = stdnt.split(' ')
+
+    stdnt = session.classrooms[classroom]['{} {}'.format(last, first)]
+
+    print(chr(27) + "[2J")
+    print(stdnt)
+
+    command_chain = {
+        'Add assignment': None,
+        'Delete assignment': None,
+        'Edit assignment': None,
+    }
 
 
 master_commands = {'home': home,
-                   'room': room}
-
-
-current_chain = {
-    'home': home,
-    'room': room,
-}
-
+                   'room': room,
+                   'student': student}
 
 while end_session is False:
     home()
