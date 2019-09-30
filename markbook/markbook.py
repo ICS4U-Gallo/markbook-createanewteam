@@ -238,10 +238,10 @@ class Book:
         """
 
         file = open(file_path, 'rb')
-        session = pickle.load(file)
+        book = pickle.load(file)
         file.close()
 
-        return session
+        return book
 
     def wipe(self) -> None:
 
@@ -252,6 +252,12 @@ class Book:
         self.classrooms.update({})
 
     def print_info(self, return_str=False):
+
+        """
+        :param return_str: boolean, default is False. returns table as single string to be printed if set to True
+        :return: No returns unless return_str is set to True. default just prints info in tabular format
+        """
+
         header = Classroom().__dict__
         # header.pop('students')
 
@@ -266,10 +272,25 @@ class Book:
             print(to_print)
 
     def tweak(self, class_name: str, attribute: str, value) -> None:
+
+        """
+        :param class_name: name of class to be modified
+        :param attribute: name of classroom attribute to be modified. if attribute does not exist it is created
+        :param value: value associated to attribute being modified. overwrites any
+        existing value associated to that attribute
+        :return: no returns, modifies existing and/or creates attributes
+        """
+
         self.classrooms[class_name].tweak(attribute, value)
 
     def inspect(self, class_name: str) -> None:
-        self.classrooms[class_name].print_students()
+
+        """
+        :param class_name: name of class to be inspected
+        :return: no returns, prints all students in given class
+        """
+
+        self.classrooms[class_name].print_info()
 
     def find(self, first_name: str, last_name: str):
 
@@ -462,6 +483,18 @@ def student():
         'View assignment: 4': None,
         'Quit: 5': None
     }
+
+
+def add_assignment():
+    pass  # Not Finished
+
+
+def delete_assignment():
+    pass  # Not Finished
+
+
+def view_assignment():
+    pass  # Not Finished
 
 
 def assignment():
