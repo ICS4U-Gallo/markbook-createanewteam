@@ -1,4 +1,3 @@
-#! /usr/bin/env python3
 import os
 import pickle
 import tabulate  # External library to simplify tabular printing
@@ -293,65 +292,96 @@ class Book:
         return getattr(self, item)
 
 
-# Testing Code IGNORE
+# ----------------------- Starting UI----------------------- #
 
-"""
-book = Book()
+session = Book().load('../markbook/userdata/session.pickle')
 
-stud = Student(first_name='John', last_name='Smith', gender='M')
-stud2 = Student(first_name='Maria', last_name='Dick', gender='F')
-stud3 = Student(first_name='Robert', last_name='DiNero', gender='M')
-stud4 = Student(first_name='James', last_name='Harris', gender='M')
+end_session = False
 
-classroom = Classroom(students=[stud, stud2, stud3, stud4])
-classroom.tweak('class_name', '12 Gallo')
+print("Welcome to Markbook")
 
-book.add_class(classroom)
-book.tweak('12 Gallo', 'course_code', 'ICS4U1')
-
-book.print_classrooms() 
-
-classroom.print_students()
+session.print_info()
 
 
-<<<<<<< HEAD
-room = book.classrooms['12 Gallo']
-room.print_students()
-
-room.students['DiNero Robert'].tweak('student_number', 5386492)
-
-room.print_students()
-
-
+def add_class():
+    session.add_class(Classroom(class_name=input("Class name: "), course_code=input("Course code: "),
+                                course_name=input("Course name: "), period=input("Period number: "),
+                                teacher_name=input("Teacher: ")))
+    print(chr(27) + "[2J")
+    print('\n\nClass Added')
+    session.print_info()
 
 
-book = Book()
+def delete_class():
+    session.remove_class(input("Name of class to delete: "))
 
-dummy = Classroom(class_name='Gallo')
-
-book.add_class(dummy)
-
-book.tweak('Gallo', 'class_name', 'Gallo')
-# book.print_info()
-
-# (book.classrooms)
-gallo = book.classrooms['Gallo']
-# gallo.print_info()
-
-john = Student()
-john.tweak('first_name', 'John')
-john.tweak('last_name', 'Harris')
-
-gallo.add_student(john)
-
-gallo.print_info()
-
-book.print_info()
+    print(chr(27) + "[2J")
+    print('\n\nClass Deleted')
+    session.print_info()
 
 
-john.print_info()
-"""
+def edit_class():
+    session.tweak(input("Which class' information would you like to edit"),
+                  input("Which parameter would you like to edit"),
+                  input("New value"))
+
+    print(chr(27) + "[2J")
+    session.print_info()
 
 
-book = Book().load('./userdata/session.pickle')
-book.print_info()
+def view_class():
+    print(chr(27) + "[2J")
+    room_to_view = input("Which class would you like to view: ")
+    session.classrooms[room_to_view].print_info()
+
+
+def home():
+
+    command_chain = {
+        '1': add_class,
+        '2': delete_class,
+        '3': edit_class,
+        '4': view_class
+    }
+
+    global end_session
+    while end_session is False:
+        print('Add class: 1\n'
+              'Delete class: 2\n'
+              'Edit class: 3\n'
+              'View class: 4\n'
+              'Quit: 5\n')
+
+        user_inpt = input('What would you like to do: ')
+        if user_inpt == '5':
+            end_session = True
+        elif user_inpt in master_commands.keys():
+            master_commands[user_inpt]()
+        else:
+            command_chain[user_inpt]()
+    session.save('../markbook/userdata/session.pickle')
+
+
+def room():
+    command_chain = {
+        '1': None,
+        '2': None,
+        '3': None,
+        '4': None,
+    }
+
+    print('worked')
+
+
+master_commands = {'home': home,
+                   'room': room}
+
+
+current_chain = {
+    'home': home,
+    'room': room,
+}
+
+
+while end_session is False:
+    home()
