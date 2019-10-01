@@ -3,40 +3,6 @@ import pickle
 import tabulate  # External library to simplify tabular printing
 
 
-class Assignment:
-
-    accepted_types = {
-        'mark': float,
-        'due': str,
-        'name': str,
-        'points': int
-    }
-
-    def __init__(self, mark=None, due=None, name=None, points=None):
-        self.mark = mark
-        self.due = due
-        self.name = name
-        self.points = points
-
-    def tweak(self, attribute: str, value) -> None:
-
-        """
-        :param attribute: name of classroom attribute to be modified. if attribute
-        does not exist it is created
-        :param value: value associated to attribute being modified. overwrites any
-        existing value associated to that attribute
-        :return: no returns, modifies existing and/or creates attributes
-        """
-
-        self.__setattr__(attribute, value)
-
-    def __str__(self):
-        return str(list(Assignment.accepted_types.keys()))
-
-    def __getitem__(self, item):
-        return getattr(self, item)
-
-
 class Student:
 
     accepted_types = {
@@ -61,9 +27,10 @@ class Student:
         self.student_number = student_number
         self.grade = grade
         self.email = email
-        self.marks = marks
+        self.marks = []
         self.comments = comments
         self.average = average
+        self.assignments = {}
 
     def wipe(self) -> None:
 
@@ -467,43 +434,97 @@ def room():
             reference.print_info()
 
 
-def student():
-    stdnt = input('Focus on student: <classroom lastname, firstname>: ')
-    stdnt = stdnt.split(' ')
+def add_assignment(reference: Student):
 
-    stdnt = session.classrooms[stdnt[0]]['{} {}'.format(stdnt[1], stdnt[2])]
+    name = input("Name of assignment: ")
+    due_date = input("Due: ")
+    points = input("Points: ")
+    mark = input('Mark: ')
 
-    print(chr(27) + "[2J")
-    print(stdnt)
+    print(reference.assignments)
 
-    command_chain = {
-        'Add assignment: 1': None,
-        'Delete assignment: 2': None,
-        'Edit assignment: 3': None,
-        'View assignment: 4': None,
-        'Quit: 5': None
-    }
+    reference.assignments[0].update({'name': name,
+                                     'due_date': due_date,
+                                     'points': points})
+
+    reference.marks.append(mark)
 
 
-def add_assignment():
-    pass  # Not Finished
+def delete_assignment(reference: Student):
+    reference.assignments.pop(input('Name of assignment: '))
 
 
-def delete_assignment():
-    pass  # Not Finished
+def update_assignment(reference: Student):
+
+    name = input("Name of assignment: ")
+    due_date = input("Due: ")
+    points = input("Points: ")
+
+    reference.assignments.update({'name': name,
+                                  'due_date': due_date,
+                                  'points': points})
 
 
-def view_assignment():
-    pass  # Not Finished
+def view_assignment(reference: Student):
+    print(reference.assignments)
+
+
+"""
+def student_avg(assignments, student_name):
+
+    a = 0
+    x = 0
+    for i in assignments:
+        b = int(assignments[i]["points"]) * int(assignments[i]["marks"][student_name])
+        y = int(assignments[i]["points"])
+
+        a += b
+        x += y
+
+    return a/x
+"""
 
 
 def assignment():
-    pass  # Not Finished
+    stdnt = input('Focus on student: <classroom lastname firstname>: ')
+    stdnt = stdnt.split(' ')
+    stdnt = session.classrooms[stdnt[0]].students['{} {}'.format(stdnt[1], stdnt[2])]
+
+    print(chr(27) + "[2J")
+    stdnt.print_info()
+
+    command_chain = {
+        '1': add_assignment,
+        '2': delete_assignment,
+        '3': update_assignment,
+        '4': view_assignment
+    }
+
+    global end_session
+    while end_session is False:
+        print('Add assignment: 1\n'
+              'Delete assignment: 2\n'
+              'Update assignment: 3\n'
+              'View Assignments: 4\n'
+              'Quit: 5\n')
+
+        user_inpt = input('What would you like to do: ')
+
+        try:
+            if user_inpt == '5':
+                end_session = True
+            else:
+                try:
+                    master_commands[user_inpt]()
+                except KeyError:
+                    command_chain[user_inpt](stdnt)
+        except KeyError:
+            print('\nCommand not recognized\n')
+            stdnt.print_info()
 
 
 master_commands = {'home': home,
                    'room': room,
-                   'student': student,
                    'assignment': assignment}
 
 while end_session is False:
